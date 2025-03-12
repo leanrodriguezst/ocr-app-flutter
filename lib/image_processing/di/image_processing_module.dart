@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:ocr_app_flutter/image_processing/data/image_processing_manager_impl.dart';
 import 'package:ocr_app_flutter/image_processing/data/interfaces/image_processing_service.dart';
 import 'package:ocr_app_flutter/image_processing/infrastructure/image_processing_service_impl.dart';
@@ -10,8 +11,12 @@ import 'package:ocr_app_flutter/image_processing/usecases/process_image_use_case
 final getIt = GetIt.instance;
 
 void setupImageProcessingModule() {
+  getIt.registerLazySingleton(
+    () => TextRecognizer(script: TextRecognitionScript.latin),
+  );
+
   getIt.registerLazySingleton<ImageProcessingService>(
-    () => ImageProcessingServiceImpl(),
+    () => ImageProcessingServiceImpl(getIt<TextRecognizer>()),
   );
   getIt.registerLazySingleton<ImageProcessingManager>(
     () => ImageProcessingManagerImpl(getIt<ImageProcessingService>()),

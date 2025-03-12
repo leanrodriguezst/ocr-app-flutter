@@ -3,7 +3,9 @@ import 'package:ocr_app_flutter/core/utils/result.dart';
 import 'package:ocr_app_flutter/image_processing/data/interfaces/image_processing_service.dart';
 
 class ImageProcessingServiceImpl extends ImageProcessingService {
-  final _textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
+  final TextRecognizer _textRecognizer;
+
+  ImageProcessingServiceImpl(this._textRecognizer);
 
   @override
   Future<Result<String, Exception>> processImage(String imagePath) async {
