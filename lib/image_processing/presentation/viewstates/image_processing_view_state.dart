@@ -1,3 +1,5 @@
+import 'package:ocr_app_flutter/core/presentation/models/ui_error.dart';
+
 sealed class ImageProcessingViewState {
   const ImageProcessingViewState();
 }
@@ -7,9 +9,9 @@ class LoadingState extends ImageProcessingViewState {
 }
 
 class ErrorState extends ImageProcessingViewState {
-  final String message;
+  final UiError error;
 
-  ErrorState(this.message);
+  ErrorState(this.error);
 }
 
 class ReadyState extends ImageProcessingViewState {

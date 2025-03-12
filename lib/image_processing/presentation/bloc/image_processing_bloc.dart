@@ -21,7 +21,17 @@ class ImageProcessingBloc
   ) async {
     emit(state.copyWith(viewState: const LoadingState()));
     final imagePath = event.imagePath;
-    final text = await processImageUseCase.processImage(imagePath);
-    emit(state.copyWith(processedText: text, viewState: const ReadyState()));
+    final textResult = await processImageUseCase.processImage(imagePath);
+    if (textResult.isFailure) {
+      emit(state.copyWith(viewState: ErrorState(textResult.error!)));
+      return;
+    }
+    final textResultValue = textResult.value!;
+    emit(
+      state.copyWith(
+        processedText: textResultValue,
+        viewState: const ReadyState(),
+      ),
+    );
   }
 }

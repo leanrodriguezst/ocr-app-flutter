@@ -3,4 +3,7 @@ class Result<T, E> {
   final E? error;
 
   Result({this.value, this.error});
+
+  bool get isSuccess => value != null;
+  bool get isFailure => error != null;
 }

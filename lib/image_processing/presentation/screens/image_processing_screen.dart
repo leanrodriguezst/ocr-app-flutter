@@ -54,7 +54,10 @@ class _ImageProcessingViewState extends State<_ImageProcessingView> {
       appBar: AppBar(title: const Text('Procesando imagen')),
       body: switch (widget.state.viewState) {
         LoadingState() => const Center(child: CircularProgressIndicator()),
-        ErrorState() => throw UnimplementedError(),
+        ErrorState(:final error) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text(error.message)],
+        ),
         ReadyState() => Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [Text(widget.state.processedText)],
