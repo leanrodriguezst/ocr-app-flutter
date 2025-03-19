@@ -8,23 +8,24 @@ import 'package:ocr_app_flutter/image_processing/presentation/interfaces/process
 import 'package:ocr_app_flutter/image_processing/usecases/interfaces/image_processing_manager.dart';
 import 'package:ocr_app_flutter/image_processing/usecases/process_image_use_case_impl.dart';
 
-final getIt = GetIt.instance;
-
 void setupImageProcessingModule() {
-  getIt.registerLazySingleton(
+  GetIt.I.registerLazySingleton(
     () => TextRecognizer(script: TextRecognitionScript.latin),
   );
 
-  getIt.registerLazySingleton<ImageProcessingService>(
-    () => ImageProcessingServiceImpl(getIt<TextRecognizer>()),
+  GetIt.I.registerLazySingleton<ImageProcessingService>(
+    () => ImageProcessingServiceImpl(GetIt.I<TextRecognizer>()),
   );
-  getIt.registerLazySingleton<ImageProcessingManager>(
-    () => ImageProcessingManagerImpl(getIt<ImageProcessingService>()),
+
+  GetIt.I.registerLazySingleton<ImageProcessingManager>(
+    () => ImageProcessingManagerImpl(GetIt.I<ImageProcessingService>()),
   );
-  getIt.registerLazySingleton<ProcessImageUseCase>(
-    () => ProcessImageUseCaseImpl(getIt<ImageProcessingManager>()),
+
+  GetIt.I.registerLazySingleton<ProcessImageUseCase>(
+    () => ProcessImageUseCaseImpl(GetIt.I<ImageProcessingManager>()),
   );
-  getIt.registerFactory(
-    () => ImageProcessingBloc(getIt<ProcessImageUseCase>()),
+
+  GetIt.I.registerFactory(
+    () => ImageProcessingBloc(GetIt.I<ProcessImageUseCase>()),
   );
 }
