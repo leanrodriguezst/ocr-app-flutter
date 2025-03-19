@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ocr_app_flutter/core/presentation/models/ui_error.dart';
+import 'package:ocr_app_flutter/core/presentation/widgets/error_dialog.dart';
 import 'package:ocr_app_flutter/image_processing/di/image_processing_module.dart';
 import 'package:ocr_app_flutter/image_processing/presentation/bloc/image_processing_bloc.dart';
 import 'package:ocr_app_flutter/image_processing/presentation/viewstates/image_processing_view_state.dart';
@@ -50,19 +52,43 @@ class _ImageProcessingViewState extends State<_ImageProcessingView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Procesando imagen')),
-      body: switch (widget.state.viewState) {
-        LoadingState() => const Center(child: CircularProgressIndicator()),
-        ErrorState(:final error) => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text(error.message)],
-        ),
-        ReadyState() => Column(
+    Widget body;
+
+    switch (widget.state.viewState) {
+      case LoadingState():
+        body = const Center(child: CircularProgressIndicator());
+        break;
+      case ErrorState(:final error):
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          showAlertDialog(error);
+        });
+        body = const SizedBox(height: 20);
+        break;
+      case ReadyState():
+        body = Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [Text(widget.state.processedText)],
-        ),
+        );
+        break;
+    }
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Procesando imagen')),
+      body: body,
+    );
+  }
+
+  void showAlertDialog(UiError error) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return ErrorDialog(error: error, onAccept: onAccept);
       },
     );
+  }
+
+  void onAccept() {
+    // Go back to home
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 }
