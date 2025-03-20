@@ -2,13 +2,32 @@ part of 'login_bloc.dart';
 
 class LoginState extends Equatable {
   final String token;
+  final String username;
+  final String password;
 
-  const LoginState({this.token = ''});
+  final LoginViewState viewState;
+
+  const LoginState({
+    this.token = '',
+    this.username = '',
+    this.password = '',
+    this.viewState = const ReadyState(),
+  });
 
   @override
-  List<Object> get props => [token];
+  List<Object> get props => [token, username, password, viewState];
 
-  LoginState copyWith({String? token}) {
-    return LoginState(token: token ?? this.token);
+  LoginState copyWith({
+    String? token,
+    String? username,
+    String? password,
+    LoginViewState? viewState,
+  }) {
+    return LoginState(
+      token: token ?? this.token,
+      username: username ?? this.username,
+      password: password ?? this.password,
+      viewState: viewState ?? this.viewState,
+    );
   }
 }

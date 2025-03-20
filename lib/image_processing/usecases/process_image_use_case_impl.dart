@@ -17,5 +17,6 @@ class ProcessImageUseCaseImpl extends ProcessImageUseCase {
       return Result(error: error);
     }
     return Result(value: result.value);
+    // return Result(error: UiError(message: 'Error'));
   }
 }

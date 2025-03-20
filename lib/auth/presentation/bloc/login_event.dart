@@ -4,9 +4,18 @@ abstract class LoginEvent {
   const LoginEvent();
 }
 
-class Login extends LoginEvent {
-  final String email;
+class FormSubmit extends LoginEvent {
+  const FormSubmit();
+}
+
+class UsernameChanged extends LoginEvent {
+  final String username;
+
+  const UsernameChanged(this.username);
+}
+
+class PasswordChanged extends LoginEvent {
   final String password;
 
-  const Login(this.email, this.password);
+  const PasswordChanged(this.password);
 }

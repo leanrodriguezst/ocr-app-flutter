@@ -11,13 +11,17 @@ class AuthDataSourceImpl extends AuthDataSource {
   Future<Result<String, Exception>> login(String email, String password) async {
     try {
       final response = await _dio.post(
-        '/login',
-        data: {'email': email, 'password': password},
+        '/auth/login',
+        data: {'username': email, 'password': password},
       );
-      final token = response.data['token'];
+      final token = response.data['data']['accessToken'];
       return Result(value: token);
     } catch (e) {
-      return Result(error: Exception(e.toString()));
+      if (e is DioException) {
+        return Result(error: Exception(e.response!.data['error']));
+      } else {
+        return Result(error: Exception(e.toString()));
+      }
     }
   }
 }
