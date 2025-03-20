@@ -86,7 +86,7 @@ class _ImageProcessingViewState extends State<_ImageProcessingView> {
       case ReadyState():
         body = Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text(widget.state.processedText)],
+          children: [Center(child: Text(widget.state.processedText))],
         );
         break;
     }

@@ -4,6 +4,7 @@ import 'package:ocr_app_flutter/auth/di/auth_module.dart';
 import 'package:ocr_app_flutter/core/constants/environment.dart';
 import 'package:ocr_app_flutter/core/managers/session_manager_impl.dart';
 import 'package:ocr_app_flutter/core/usecases/interfaces/session_manager.dart';
+import 'package:ocr_app_flutter/home/di/home_module.dart';
 import 'package:ocr_app_flutter/image_processing/di/image_processing_module.dart';
 
 void setupCoreModule() {
@@ -12,5 +13,6 @@ void setupCoreModule() {
   );
   GetIt.I.registerLazySingleton<SessionManager>(() => SessionManagerImpl());
   setupAuthModule();
+  setupHomeModule();
   setupImageProcessingModule();
 }

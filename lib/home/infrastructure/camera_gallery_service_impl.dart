@@ -2,7 +2,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ocr_app_flutter/home/data/interfaces/camera_gallery_service.dart';
 
 class CameraGalleryServiceImpl extends CameraGalleryService {
-  final ImagePicker _picker = ImagePicker();
+  final ImagePicker _picker;
+
+  CameraGalleryServiceImpl(this._picker);
 
   @override
   Future<String?> pickImage() async {
