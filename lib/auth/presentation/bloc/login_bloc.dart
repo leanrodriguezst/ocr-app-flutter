@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ocr_app_flutter/auth/presentation/interfaces/login_use_case.dart';
+import 'package:ocr_app_flutter/auth/presentation/navigatorstates/login_navigator_state.dart';
 import 'package:ocr_app_flutter/auth/presentation/viewstates/login_view_state.dart';
 
 part 'login_event.dart';
@@ -24,7 +25,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(viewState: ErrorState(result.error!)));
       return;
     }
-    emit(state.copyWith(token: result.value, viewState: const ReadyState()));
+    emit(state.copyWith(token: result.value, navigatorState: const GoToHome()));
   }
 
   void _usernameChanged(UsernameChanged event, Emitter<LoginState> emit) {

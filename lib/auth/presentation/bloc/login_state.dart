@@ -6,12 +6,14 @@ class LoginState extends Equatable {
   final String password;
 
   final LoginViewState viewState;
+  final LoginNavigatorState? navigatorState;
 
   const LoginState({
     this.token = '',
     this.username = '',
     this.password = '',
     this.viewState = const ReadyState(),
+    this.navigatorState,
   });
 
   @override
@@ -22,12 +24,14 @@ class LoginState extends Equatable {
     String? username,
     String? password,
     LoginViewState? viewState,
+    LoginNavigatorState? navigatorState,
   }) {
     return LoginState(
       token: token ?? this.token,
       username: username ?? this.username,
       password: password ?? this.password,
       viewState: viewState ?? this.viewState,
+      navigatorState: navigatorState ?? this.navigatorState,
     );
   }
 }

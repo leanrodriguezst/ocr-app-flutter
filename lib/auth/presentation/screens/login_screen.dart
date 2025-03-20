@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ocr_app_flutter/auth/presentation/bloc/login_bloc.dart';
+import 'package:ocr_app_flutter/auth/presentation/navigatorstates/login_navigator_state.dart';
 import 'package:ocr_app_flutter/auth/presentation/viewstates/login_view_state.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+
+  void handleListener(BuildContext context, LoginState state) {
+    handleNavigatorState(context, state);
+    handleErrorMessage(context, state);
+  }
+
+  void handleNavigatorState(BuildContext context, LoginState state) {
+    final navigatorState = state.navigatorState;
+    if (navigatorState is GoToHome) {
+      context.pushReplacement('/home');
+    }
+  }
 
   void handleErrorMessage(BuildContext context, LoginState state) {
     final viewState = state.viewState;
@@ -39,8 +53,9 @@ class LoginScreen extends StatelessWidget {
         listenWhen:
             (previous, current) =>
                 current.viewState is ErrorState ||
-                current.viewState is LoadingState,
-        listener: (context, state) => handleErrorMessage(context, state),
+                current.viewState is LoadingState ||
+                current.navigatorState is GoToHome,
+        listener: (context, state) => handleListener(context, state),
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(title: const Text('Login')),

@@ -14,7 +14,7 @@ class AuthDataSourceImpl extends AuthDataSource {
         '/auth/login',
         data: {'username': email, 'password': password},
       );
-      final token = response.data['data']['accessToken'];
+      final token = response.data['data']['idToken'];
       return Result(value: token);
     } catch (e) {
       if (e is DioException) {
