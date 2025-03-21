@@ -30,6 +30,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         viewState: const HomeReady(),
       ),
     );
+    // Reset navigator state
+    emit(state.copyWith(navigatorState: null));
   }
 
   void _onPickImageSelected(PickImage event, Emitter<HomeState> emit) async {
@@ -50,5 +52,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         viewState: const HomeReady(),
       ),
     );
+    // Reset navigator state
+    emit(state.copyWith(navigatorState: null));
   }
 }

@@ -9,7 +9,12 @@ import 'package:ocr_app_flutter/image_processing/di/image_processing_module.dart
 
 void setupCoreModule() {
   GetIt.I.registerLazySingleton(
-    () => Dio(BaseOptions(baseUrl: Environment.apiUrl)),
+    () => Dio(
+      BaseOptions(
+        baseUrl: Environment.apiUrl,
+        connectTimeout: const Duration(seconds: 5),
+      ),
+    ),
   );
   GetIt.I.registerLazySingleton<SessionManager>(() => SessionManagerImpl());
   setupAuthModule();

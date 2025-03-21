@@ -16,12 +16,14 @@ class AuthDataSourceImpl extends AuthDataSource {
       );
       final token = response.data['data']['idToken'];
       return Result(value: token);
-    } catch (e) {
-      if (e is DioException) {
-        return Result(error: Exception(e.response!.data['error']));
-      } else {
-        return Result(error: Exception(e.toString()));
+    } on DioException catch (e) {
+      final error = e;
+      if (error.response == null) {
+        return Result(error: Exception(error.message));
       }
+      return Result(error: Exception(error.response!.data['error']));
+    } catch (e) {
+      return Result(error: Exception(e.toString()));
     }
   }
 }

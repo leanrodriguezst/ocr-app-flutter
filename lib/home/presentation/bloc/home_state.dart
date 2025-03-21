@@ -23,7 +23,7 @@ class HomeState extends Equatable {
     return HomeState(
       photoPath: photoPath ?? this.photoPath,
       viewState: viewState ?? this.viewState,
-      navigatorState: navigatorState ?? this.navigatorState,
+      navigatorState: navigatorState,
     );
   }
 }

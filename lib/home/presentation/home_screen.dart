@@ -15,6 +15,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   void _handleNavigatorState(BuildContext context, HomeState state) {
+    //TODO: Check this
     final navigatorState = state.navigatorState;
     if (navigatorState is GoToImageProcessing) {
       final photoPath = state.photoPath;
@@ -61,12 +62,6 @@ class _HomeView extends StatelessWidget {
             icon: const Icon(Icons.camera),
             onPressed: () {
               context.read<HomeBloc>().add(const TakePhoto());
-              // final photoPath =
-              //     await CameraGalleryServiceImpl().takePhoto();
-              // if (photoPath == null) return;
-              // if (context.mounted) {
-              //   context.push('/text-processing', extra: photoPath);
-              // }
             },
           ),
           TextButton.icon(
@@ -74,12 +69,6 @@ class _HomeView extends StatelessWidget {
             icon: const Icon(Icons.photo),
             onPressed: () {
               context.read<HomeBloc>().add(const PickImage());
-              // final photoPath =
-              //     await CameraGalleryServiceImpl().pickImage();
-              // if (photoPath == null) return;
-              // if (context.mounted) {
-              //   context.push('/text-processing', extra: photoPath);
-              // }
             },
           ),
         ],
